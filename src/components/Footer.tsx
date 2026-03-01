@@ -10,7 +10,7 @@ const Footer = () => {
           <div className="space-y-4">
             <Link to="/" className="flex items-center gap-2">
               <Sparkles className="w-8 h-8 text-primary" />
-              <span className="font-serif text-2xl font-semibold">LuxeNeck</span>
+              <span className="font-serif text-2xl font-semibold">AR Jewel</span>
             </Link>
             <p className="text-background/70 text-sm leading-relaxed">
               Trang sức cao cấp, thiết kế tinh tế cho phái đẹp Việt Nam. Mỗi sản phẩm là một tác phẩm nghệ thuật.
@@ -51,7 +51,7 @@ const Footer = () => {
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
                 <span className="text-background/70 text-sm">
-                  123 Đường Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh
+                  Đại học FPT, Khu Công nghệ cao Hòa Lạc, Thạch Thất, Hà Nội
                 </span>
               </li>
               <li className="flex items-center gap-3">
@@ -60,7 +60,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-primary flex-shrink-0" />
-                <span className="text-background/70 text-sm">contact@luxeneck.vn</span>
+                <span className="text-background/70 text-sm">contact@arjewel.vn</span>
               </li>
             </ul>
           </div>
@@ -90,7 +90,7 @@ const Footer = () => {
 
         <div className="border-t border-background/10 mt-12 pt-8 text-center">
           <p className="text-background/50 text-sm">
-            © 2024 LuxeNeck. Tất cả quyền được bảo lưu.
+            © 2024 AR Jewel. Tất cả quyền được bảo lưu.
           </p>
         </div>
       </div>
