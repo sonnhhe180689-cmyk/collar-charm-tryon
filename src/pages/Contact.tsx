@@ -62,8 +62,8 @@ const Contact = () => {
   const contactInfo = [
     {
       icon: MapPin,
-      title: 'Địa Chỉ Cửa Hàng',
-      details: ['123 Đường Nguyễn Huệ', 'Quận 1, TP. Hồ Chí Minh'],
+      title: 'Địa Chỉ',
+      details: ['Đại học FPT, Khu CNC Hòa Lạc', 'Thạch Thất, Hà Nội'],
     },
     {
       icon: Phone,
@@ -73,7 +73,7 @@ const Contact = () => {
     {
       icon: Mail,
       title: 'Email',
-      details: ['contact@luxeneck.vn', 'support@luxeneck.vn'],
+      details: ['contact@arjewel.vn', 'support@arjewel.vn'],
     },
     {
       icon: Clock,
@@ -120,7 +120,7 @@ const Contact = () => {
               {/* Map placeholder */}
               <div className="aspect-video rounded-2xl overflow-hidden bg-secondary">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.4464355474195!2d106.70232867573615!3d10.777868359160437!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f4b3330bcc7%3A0x4db964d76bf6e18e!2zMTIzIE5ndXnhu4VuIEh14buHLCBC4bq_biBOZ2jDqSwgUXXhuq1uIDEsIFRow6BuaCBwaOG7kSBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1704067200000!5m2!1svi!2s"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.473546128!2d105.5225855!3d21.0124167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135abc60e7d3f19%3A0x2be9d7d0b5abcbf4!2zxJDhuqFpIGjhu41jIEZQVA!5e0!3m2!1svi!2s!4v1704067200000!5m2!1svi!2s"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
