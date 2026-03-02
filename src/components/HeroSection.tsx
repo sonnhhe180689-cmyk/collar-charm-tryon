@@ -1,4 +1,4 @@
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Gem } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
@@ -16,11 +16,6 @@ const HeroSection = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div className="text-center md:text-left space-y-6 animate-fade-in">
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium">
-              <Sparkles className="w-4 h-4" />
-              Bộ Sưu Tập Mới 2024
-            </div>
-            
             <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
               Vẻ Đẹp
               <br />
@@ -48,12 +43,12 @@ const HeroSection = () => {
             {/* Stats */}
             <div className="grid grid-cols-3 gap-6 pt-8 border-t border-border mt-8">
               <div>
-                <p className="font-serif text-2xl md:text-3xl font-bold text-primary">500+</p>
-                <p className="text-muted-foreground text-sm">Sản Phẩm</p>
+                <p className="font-serif text-2xl md:text-3xl font-bold text-primary">1 Năm</p>
+                <p className="text-muted-foreground text-sm">Bảo Hành</p>
               </div>
               <div>
-                <p className="font-serif text-2xl md:text-3xl font-bold text-primary">10K+</p>
-                <p className="text-muted-foreground text-sm">Khách Hàng</p>
+                <p className="font-serif text-2xl md:text-3xl font-bold text-primary">7 Ngày</p>
+                <p className="text-muted-foreground text-sm">Miễn Phí Đổi Trả</p>
               </div>
               <div>
                 <p className="font-serif text-2xl md:text-3xl font-bold text-primary">5★</p>
@@ -73,7 +68,7 @@ const HeroSection = () => {
               {/* Center content */}
               <div className="absolute inset-16 bg-gradient-to-br from-champagne to-cream rounded-full shadow-elegant flex items-center justify-center">
                 <div className="text-center">
-                  <Sparkles className="w-16 h-16 text-primary mx-auto mb-4" />
+                  <Gem className="w-16 h-16 text-primary mx-auto mb-4" />
                   <p className="font-serif text-xl text-foreground">AR Jewel</p>
                   <p className="text-muted-foreground text-sm">Trang Sức Cao Cấp</p>
                 </div>

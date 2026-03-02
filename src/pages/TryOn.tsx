@@ -77,13 +77,31 @@ const TryOn = () => {
           {/* Steps */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
             {steps.map((step, index) => (
-              <div key={index} className="text-center p-4">
+              <button
+                key={index}
+                className="text-center p-4 rounded-xl hover:bg-primary/5 transition-colors"
+                onClick={() => {
+                  if (index === 0) {
+                    // Tải ảnh - trigger file upload in canvas
+                    document.getElementById('tryon-upload-input')?.click();
+                  } else if (index === 1) {
+                    // Chọn vòng - scroll to gallery
+                    document.getElementById('necklace-gallery')?.scrollIntoView({ behavior: 'smooth' });
+                  } else if (index === 2) {
+                    // Điều chỉnh - scroll to controls
+                    document.getElementById('necklace-controls')?.scrollIntoView({ behavior: 'smooth' });
+                  } else if (index === 3) {
+                    // Mua hàng - navigate to cart
+                    window.location.href = '/cart';
+                  }
+                }}
+              >
                 <div className="w-12 h-12 mx-auto mb-3 bg-primary/10 rounded-full flex items-center justify-center">
                   <step.icon className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="font-semibold text-sm mb-1">{step.title}</h3>
                 <p className="text-muted-foreground text-xs">{step.description}</p>
-              </div>
+              </button>
             ))}
           </div>
 
