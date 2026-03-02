@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Upload, Move, ZoomIn, ZoomOut, RotateCcw, Download, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Upload, Move, ZoomIn, ZoomOut, RotateCcw, Download, ChevronLeft, ChevronRight, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { toast } from 'sonner';
@@ -50,7 +50,7 @@ const TryOnCanvas = ({ necklaces, selectedNecklaceId }: TryOnCanvasProps) => {
       const reader = new FileReader();
       reader.onload = (e) => {
         setUploadedImage(e.target?.result as string);
-        toast.success('Đã tải ảnh thành công!');
+        toast.success('Đã chụp ảnh thành công!');
       };
       reader.readAsDataURL(file);
     }
@@ -181,10 +181,10 @@ const TryOnCanvas = ({ necklaces, selectedNecklaceId }: TryOnCanvasProps) => {
             className="w-full h-full flex flex-col items-center justify-center cursor-pointer hover:bg-secondary/80 transition-colors"
             onClick={() => fileInputRef.current?.click()}
           >
-            <Upload className="w-16 h-16 text-muted-foreground mb-4" />
-            <p className="text-muted-foreground font-medium">Tải ảnh của bạn lên</p>
+            <Camera className="w-16 h-16 text-muted-foreground mb-4" />
+            <p className="text-muted-foreground font-medium">Chụp ảnh chân dung</p>
             <p className="text-muted-foreground/70 text-sm mt-2">
-              Nhấn để chọn hoặc kéo thả ảnh
+              Nhấn để mở camera và chụp ảnh
             </p>
           </div>
         )}
@@ -193,6 +193,7 @@ const TryOnCanvas = ({ necklaces, selectedNecklaceId }: TryOnCanvasProps) => {
           ref={fileInputRef}
           type="file"
           accept="image/*"
+          capture="user"
           onChange={handleImageUpload}
           className="hidden"
         />
@@ -259,8 +260,8 @@ const TryOnCanvas = ({ necklaces, selectedNecklaceId }: TryOnCanvasProps) => {
             onClick={() => fileInputRef.current?.click()}
             className="w-full text-muted-foreground"
           >
-            <Upload className="w-4 h-4 mr-2" />
-            Đổi Ảnh Khác
+            <Camera className="w-4 h-4 mr-2" />
+            Chụp Ảnh Khác
           </Button>
         </div>
       )}

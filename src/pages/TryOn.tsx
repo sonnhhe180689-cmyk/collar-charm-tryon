@@ -38,8 +38,8 @@ const TryOn = () => {
   const steps = [
     {
       icon: Camera,
-      title: 'Tải Ảnh',
-      description: 'Chọn ảnh chân dung của bạn',
+      title: 'Chụp Ảnh',
+      description: 'Chụp ảnh chân dung của bạn',
     },
     {
       icon: Sparkles,
