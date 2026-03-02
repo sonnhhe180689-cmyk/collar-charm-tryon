@@ -189,6 +189,7 @@ const TryOnCanvas = ({ necklaces, selectedNecklaceId }: TryOnCanvasProps) => {
           </div>
         )}
         <input
+          id="tryon-upload-input"
           ref={fileInputRef}
           type="file"
           accept="image/*"
@@ -201,7 +202,7 @@ const TryOnCanvas = ({ necklaces, selectedNecklaceId }: TryOnCanvasProps) => {
       {uploadedImage && (
         <div className="space-y-4 max-w-md mx-auto">
           {/* Necklace selector */}
-          <div className="flex items-center justify-between gap-4 p-4 bg-card rounded-xl shadow-card">
+          <div id="necklace-controls" className="flex items-center justify-between gap-4 p-4 bg-card rounded-xl shadow-card">
             <Button variant="ghost" size="icon" onClick={selectPrevNecklace}>
               <ChevronLeft className="w-5 h-5" />
             </Button>
@@ -265,7 +266,7 @@ const TryOnCanvas = ({ necklaces, selectedNecklaceId }: TryOnCanvasProps) => {
       )}
 
       {/* Necklace Gallery */}
-      <div className="pt-6 border-t border-border">
+      <div id="necklace-gallery" className="pt-6 border-t border-border">
         <h3 className="font-serif text-lg mb-4">Chọn Vòng Cổ</h3>
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
           {necklaces.map((necklace) => {
