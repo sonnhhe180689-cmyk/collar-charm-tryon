@@ -44,7 +44,7 @@ const HeroSection = () => {
             <div className="grid grid-cols-3 gap-6 pt-8 border-t border-border mt-8">
               <div>
                 <p className="font-serif text-2xl md:text-3xl font-bold text-primary">24/7</p>
-                <p className="text-muted-foreground text-sm">Hỗ Trợ</p>
+                <p className="text-muted-foreground text-sm">Hỗ Trợ Khách Hàng</p>
               </div>
               <div>
                 <p className="font-serif text-2xl md:text-3xl font-bold text-primary">7 Ngày</p>
