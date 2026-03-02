@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from 'react';
-import { Upload, Move, ZoomIn, ZoomOut, RotateCcw, Download, ChevronLeft, ChevronRight, Camera } from 'lucide-react';
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { Move, ZoomIn, ZoomOut, RotateCcw, Download, ChevronLeft, ChevronRight, Camera, VideoOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { toast } from 'sonner';
@@ -23,8 +23,12 @@ const TryOnCanvas = ({ necklaces, selectedNecklaceId }: TryOnCanvasProps) => {
   const [necklacePosition, setNecklacePosition] = useState({ x: 50, y: 60 });
   const [necklaceScale, setNecklaceScale] = useState(100);
   const [isDragging, setIsDragging] = useState(false);
+  const [isCameraActive, setIsCameraActive] = useState(false);
+  const [cameraError, setCameraError] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const streamRef = useRef<MediaStream | null>(null);
 
   useEffect(() => {
     if (selectedNecklaceId && necklaces.length > 0) {
@@ -40,21 +44,52 @@ const TryOnCanvas = ({ necklaces, selectedNecklaceId }: TryOnCanvasProps) => {
     return necklaceImages[imageKey] || imageKey;
   };
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      if (!file.type.startsWith('image/')) {
-        toast.error('Vui lòng chọn file ảnh');
-        return;
+  const startCamera = useCallback(async () => {
+    try {
+      setCameraError(null);
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 1706 } },
+        audio: false,
+      });
+      streamRef.current = stream;
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        await videoRef.current.play();
       }
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setUploadedImage(e.target?.result as string);
-        toast.success('Đã chụp ảnh thành công!');
-      };
-      reader.readAsDataURL(file);
+      setIsCameraActive(true);
+    } catch (err) {
+      setCameraError('Không thể truy cập camera. Vui lòng cấp quyền camera.');
+      toast.error('Không thể mở camera');
     }
-  };
+  }, []);
+
+  const stopCamera = useCallback(() => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach(track => track.stop());
+      streamRef.current = null;
+    }
+    setIsCameraActive(false);
+  }, []);
+
+  const capturePhoto = useCallback(() => {
+    if (!videoRef.current || !canvasRef.current) return;
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const ctx = canvas.getContext('2d');
+    if (ctx) {
+      ctx.drawImage(video, 0, 0);
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+      setUploadedImage(dataUrl);
+      stopCamera();
+      toast.success('Đã chụp ảnh thành công!');
+    }
+  }, [stopCamera]);
+
+  useEffect(() => {
+    return () => stopCamera();
+  }, [stopCamera]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!uploadedImage) return;
@@ -176,27 +211,46 @@ const TryOnCanvas = ({ necklaces, selectedNecklaceId }: TryOnCanvasProps) => {
               </div>
             )}
           </>
+        ) : isCameraActive ? (
+          <div className="w-full h-full relative">
+            <video
+              ref={videoRef}
+              className="w-full h-full object-cover"
+              autoPlay
+              playsInline
+              muted
+              style={{ transform: 'scaleX(-1)' }}
+            />
+            <div className="absolute bottom-6 left-0 right-0 flex justify-center">
+              <button
+                id="tryon-upload-input"
+                onClick={capturePhoto}
+                className="w-16 h-16 rounded-full bg-white border-4 border-primary shadow-lg hover:scale-105 transition-transform"
+              />
+            </div>
+          </div>
         ) : (
           <div
             className="w-full h-full flex flex-col items-center justify-center cursor-pointer hover:bg-secondary/80 transition-colors"
-            onClick={() => fileInputRef.current?.click()}
+            onClick={startCamera}
           >
-            <Camera className="w-16 h-16 text-muted-foreground mb-4" />
-            <p className="text-muted-foreground font-medium">Chụp ảnh chân dung</p>
-            <p className="text-muted-foreground/70 text-sm mt-2">
-              Nhấn để mở camera và chụp ảnh
-            </p>
+            {cameraError ? (
+              <>
+                <VideoOff className="w-16 h-16 text-destructive mb-4" />
+                <p className="text-destructive font-medium text-center px-4">{cameraError}</p>
+              </>
+            ) : (
+              <>
+                <Camera className="w-16 h-16 text-muted-foreground mb-4" />
+                <p className="text-muted-foreground font-medium">Chụp ảnh chân dung</p>
+                <p className="text-muted-foreground/70 text-sm mt-2">
+                  Nhấn để mở camera và chụp ảnh
+                </p>
+              </>
+            )}
           </div>
         )}
-        <input
-          id="tryon-upload-input"
-          ref={fileInputRef}
-          type="file"
-          accept="image/*"
-          capture="user"
-          onChange={handleImageUpload}
-          className="hidden"
-        />
+        <canvas ref={canvasRef} className="hidden" />
       </div>
 
       {/* Controls */}
@@ -257,7 +311,7 @@ const TryOnCanvas = ({ necklaces, selectedNecklaceId }: TryOnCanvasProps) => {
           {/* Change photo */}
           <Button
             variant="ghost"
-            onClick={() => fileInputRef.current?.click()}
+            onClick={() => { setUploadedImage(null); startCamera(); }}
             className="w-full text-muted-foreground"
           >
             <Camera className="w-4 h-4 mr-2" />
