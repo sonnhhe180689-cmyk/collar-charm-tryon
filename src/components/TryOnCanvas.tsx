@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Move, ZoomIn, ZoomOut, RotateCcw, Download, ChevronLeft, ChevronRight, Camera, VideoOff } from 'lucide-react';
+import { Upload, Move, ZoomIn, ZoomOut, RotateCcw, Download, ChevronLeft, ChevronRight, Camera, VideoOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { toast } from 'sonner';
@@ -29,6 +29,7 @@ const TryOnCanvas = ({ necklaces, selectedNecklaceId }: TryOnCanvasProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (selectedNecklaceId && necklaces.length > 0) {
@@ -84,6 +85,23 @@ const TryOnCanvas = ({ necklaces, selectedNecklaceId }: TryOnCanvasProps) => {
       setUploadedImage(dataUrl);
       stopCamera();
       toast.success('Đã chụp ảnh thành công!');
+    }
+  }, [stopCamera]);
+
+  const handleFileUpload = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (!file.type.startsWith('image/')) {
+        toast.error('Vui lòng chọn file ảnh');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        setUploadedImage(ev.target?.result as string);
+        stopCamera();
+        toast.success('Đã tải ảnh thành công!');
+      };
+      reader.readAsDataURL(file);
     }
   }, [stopCamera]);
 
@@ -223,7 +241,6 @@ const TryOnCanvas = ({ necklaces, selectedNecklaceId }: TryOnCanvasProps) => {
             />
             <div className="absolute bottom-6 left-0 right-0 flex justify-center">
               <button
-                id="tryon-upload-input"
                 onClick={capturePhoto}
                 className="w-16 h-16 rounded-full bg-white border-4 border-primary shadow-lg hover:scale-105 transition-transform"
               />
@@ -251,6 +268,14 @@ const TryOnCanvas = ({ necklaces, selectedNecklaceId }: TryOnCanvasProps) => {
           </div>
         )}
         <canvas ref={canvasRef} className="hidden" />
+        <input
+          id="tryon-upload-input"
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          onChange={handleFileUpload}
+          className="hidden"
+        />
       </div>
 
       {/* Controls */}

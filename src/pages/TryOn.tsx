@@ -4,7 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import TryOnCanvas from '@/components/TryOnCanvas';
-import { Sparkles, Camera, Move, ShoppingCart } from 'lucide-react';
+import { Sparkles, Upload, Move, ShoppingCart } from 'lucide-react';
 
 interface Necklace {
   id: string;
@@ -37,9 +37,9 @@ const TryOn = () => {
 
   const steps = [
     {
-      icon: Camera,
-      title: 'Chụp Ảnh',
-      description: 'Chụp ảnh chân dung của bạn',
+      icon: Upload,
+      title: 'Tải Ảnh',
+      description: 'Tải ảnh chân dung từ máy lên',
     },
     {
       icon: Sparkles,
