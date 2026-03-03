@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { toast } from 'sonner';
 import { necklaceImages } from '@/lib/necklaceImages';
+import { removeWhiteBackground } from '@/lib/removeBackground';
 
 interface Necklace {
   id: string;
@@ -19,6 +20,7 @@ interface TryOnCanvasProps {
 
 const TryOnCanvas = ({ necklaces, selectedNecklaceId }: TryOnCanvasProps) => {
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+  const [processedOverlays, setProcessedOverlays] = useState<Record<string, string>>({});
   const [selectedNecklace, setSelectedNecklace] = useState<Necklace | null>(null);
   const [necklacePosition, setNecklacePosition] = useState({ x: 50, y: 60 });
   const [necklaceScale, setNecklaceScale] = useState(100);
@@ -191,8 +193,20 @@ const TryOnCanvas = ({ necklaces, selectedNecklaceId }: TryOnCanvasProps) => {
     setSelectedNecklace(necklaces[nextIndex]);
   };
 
-  const selectedNecklaceImageUrl = selectedNecklace 
+  // Process necklace image to remove white background
+  const rawNecklaceUrl = selectedNecklace
     ? getActualImage(selectedNecklace.overlay_image_url || selectedNecklace.image_url)
+    : null;
+
+  useEffect(() => {
+    if (!rawNecklaceUrl || processedOverlays[rawNecklaceUrl]) return;
+    removeWhiteBackground(rawNecklaceUrl).then((processed) => {
+      setProcessedOverlays((prev) => ({ ...prev, [rawNecklaceUrl]: processed }));
+    }).catch(() => {});
+  }, [rawNecklaceUrl, processedOverlays]);
+
+  const selectedNecklaceImageUrl = rawNecklaceUrl
+    ? processedOverlays[rawNecklaceUrl] || rawNecklaceUrl
     : null;
 
   return (
@@ -231,7 +245,6 @@ const TryOnCanvas = ({ necklaces, selectedNecklaceId }: TryOnCanvasProps) => {
                   src={selectedNecklaceImageUrl}
                   alt={selectedNecklace.name}
                   className="w-full h-auto drop-shadow-lg"
-                  style={{ mixBlendMode: 'multiply' }}
                   draggable={false}
                 />
               </div>
