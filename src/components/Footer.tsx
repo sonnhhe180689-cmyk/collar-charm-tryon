@@ -88,11 +88,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-background/10 mt-12 pt-8 text-center">
-          <p className="text-background/50 text-sm">
-            © 2024 AR Jewel. Tất cả quyền được bảo lưu.
-          </p>
-        </div>
+        <div className="border-t border-background/10 mt-12 pt-8" />
       </div>
     </footer>
   );

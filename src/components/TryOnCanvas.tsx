@@ -231,6 +231,7 @@ const TryOnCanvas = ({ necklaces, selectedNecklaceId }: TryOnCanvasProps) => {
                   src={selectedNecklaceImageUrl}
                   alt={selectedNecklace.name}
                   className="w-full h-auto drop-shadow-lg"
+                  style={{ mixBlendMode: 'multiply' }}
                   draggable={false}
                 />
               </div>
