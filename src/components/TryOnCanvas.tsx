@@ -48,21 +48,26 @@ const TryOnCanvas = ({ necklaces, selectedNecklaceId }: TryOnCanvasProps) => {
   const startCamera = useCallback(async () => {
     try {
       setCameraError(null);
+      setIsCameraActive(true);
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 1706 } },
+        video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } },
         audio: false,
       });
       streamRef.current = stream;
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        await videoRef.current.play();
-      }
-      setIsCameraActive(true);
     } catch (err) {
+      setIsCameraActive(false);
       setCameraError('Không thể truy cập camera. Vui lòng cấp quyền camera.');
       toast.error('Không thể mở camera');
     }
   }, []);
+
+  // Assign stream to video element once it's mounted
+  useEffect(() => {
+    if (isCameraActive && streamRef.current && videoRef.current && !videoRef.current.srcObject) {
+      videoRef.current.srcObject = streamRef.current;
+      videoRef.current.play().catch(() => {});
+    }
+  }, [isCameraActive]);
 
   const stopCamera = useCallback(() => {
     if (streamRef.current) {
