@@ -48,20 +48,27 @@ const TryOnCanvas = ({ necklaces, selectedNecklaceId }: TryOnCanvasProps) => {
   const startCamera = useCallback(async () => {
     try {
       setCameraError(null);
-      setIsCameraActive(true);
+      // getUserMedia must be called directly in click handler for Safari
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } },
         audio: false,
       });
       streamRef.current = stream;
+      setIsCameraActive(true);
+      // Use requestAnimationFrame to ensure video element is mounted after state update
+      requestAnimationFrame(() => {
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+          videoRef.current.play().catch(() => {});
+        }
+      });
     } catch (err) {
-      setIsCameraActive(false);
       setCameraError('Không thể truy cập camera. Vui lòng cấp quyền camera.');
       toast.error('Không thể mở camera');
     }
   }, []);
 
-  // Assign stream to video element once it's mounted
+  // Fallback: assign stream when video element mounts
   useEffect(() => {
     if (isCameraActive && streamRef.current && videoRef.current && !videoRef.current.srcObject) {
       videoRef.current.srcObject = streamRef.current;
