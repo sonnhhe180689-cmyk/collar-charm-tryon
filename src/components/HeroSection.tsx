@@ -69,7 +69,7 @@ const HeroSection = () => {
               <div className="absolute inset-16 bg-gradient-to-br from-champagne to-cream rounded-full shadow-elegant flex items-center justify-center">
                 <div className="text-center">
                   <Gem className="w-16 h-16 text-primary mx-auto mb-4" />
-                  <p className="font-serif text-xl text-foreground">AR Jewel</p>
+                  <p className="font-serif text-xl text-foreground">Luna Jewel</p>
                   <p className="text-muted-foreground text-sm">Trang Sức Cao Cấp</p>
                 </div>
               </div>

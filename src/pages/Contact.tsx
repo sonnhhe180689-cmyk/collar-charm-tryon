@@ -73,7 +73,7 @@ const Contact = () => {
     {
       icon: Mail,
       title: 'Email',
-      details: ['contact@arjewel.vn', 'support@arjewel.vn'],
+      details: ['contact@lunajewel.vn', 'support@lunajewel.vn'],
     },
     {
       icon: Clock,

@@ -9,7 +9,9 @@ import TryOn from "./pages/TryOn";
 import Cart from "./pages/Cart";
 import Contact from "./pages/Contact";
 import Guide from "./pages/Guide";
+import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -22,8 +24,9 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/products" element={<Products />} />
-          <Route path="/try-on" element={<TryOn />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/try-on" element={<ProtectedRoute><TryOn /></ProtectedRoute>} />
+          <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/guide" element={<Guide />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

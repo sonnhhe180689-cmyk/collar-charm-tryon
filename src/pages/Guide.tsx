@@ -69,7 +69,7 @@ const Guide = () => {
               Hướng Dẫn <span className="text-gradient-gold">Sử Dụng</span>
             </h1>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Hướng dẫn chi tiết cách sử dụng tính năng thử vòng cổ trực tuyến và đặt hàng tại AR Jewel
+              Hướng dẫn chi tiết cách sử dụng tính năng thử vòng cổ trực tuyến và đặt hàng tại Luna Jewel
             </p>
           </div>
 
