@@ -10,7 +10,7 @@ const Footer = () => {
           <div className="space-y-4">
             <Link to="/" className="flex items-center gap-2">
               <Sparkles className="w-8 h-8 text-primary" />
-              <span className="font-serif text-2xl font-semibold">AR Jewel</span>
+              <span className="font-serif text-2xl font-semibold">Luna Jewel</span>
             </Link>
             <p className="text-background/70 text-sm leading-relaxed">
               Trang sức cao cấp, thiết kế tinh tế cho phái đẹp Việt Nam. Mỗi sản phẩm là một tác phẩm nghệ thuật.
