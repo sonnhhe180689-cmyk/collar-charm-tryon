@@ -127,7 +127,7 @@ const Contact = () => {
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Store Location"
+                  title="Vị trí cửa hàng"
                 />
               </div>
             </div>

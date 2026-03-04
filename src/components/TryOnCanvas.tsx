@@ -225,7 +225,7 @@ const TryOnCanvas = ({ necklaces, selectedNecklaceId }: TryOnCanvasProps) => {
           <>
             <img
               src={uploadedImage}
-              alt="Your photo"
+              alt="Ảnh của bạn"
               className="w-full h-full object-cover"
             />
             {selectedNecklace && selectedNecklaceImageUrl && (
