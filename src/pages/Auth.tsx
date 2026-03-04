@@ -72,7 +72,7 @@ const Auth = () => {
                 <label className="text-sm font-medium mb-1 block">Email</label>
                 <Input
                   type="email"
-                  placeholder="email@example.com"
+                  placeholder="Nhập email của bạn"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
