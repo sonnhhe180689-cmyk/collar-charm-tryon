@@ -114,7 +114,7 @@ const Cart = () => {
         <main className="pt-24 pb-20">
           <div className="container mx-auto px-4 text-center">
             <ShoppingBag className="w-24 h-24 text-muted-foreground mx-auto mb-6" />
-            <h1 className="font-serif text-3xl font-bold mb-4">Giỏ Hàng Trống</h1>
+            <h1 className="text-3xl font-bold mb-4">Giỏ Hàng Trống</h1>
             <p className="text-muted-foreground mb-8">
               Bạn chưa có sản phẩm nào trong giỏ hàng
             </p>
@@ -137,7 +137,7 @@ const Cart = () => {
 
       <main className="pt-24 pb-20">
         <div className="container mx-auto px-4">
-          <h1 className="font-serif text-4xl font-bold mb-8">
+          <h1 className="text-4xl font-bold mb-8">
             Giỏ Hàng <span className="text-gradient-gold">Của Bạn</span>
           </h1>
 
@@ -154,7 +154,7 @@ const Cart = () => {
                     />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-serif font-semibold truncate">{item.name}</h3>
+                    <h3 className="font-semibold truncate">{item.name}</h3>
                     <p className="text-primary font-medium">{formatPrice(item.price)}</p>
                     
                     <div className="flex items-center gap-3 mt-2">
@@ -182,7 +182,7 @@ const Cart = () => {
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-serif font-bold">
+                    <p className="font-bold">
                       {formatPrice(item.price * item.quantity)}
                     </p>
                   </div>
@@ -193,7 +193,7 @@ const Cart = () => {
             {/* Order Summary */}
             <div className="lg:col-span-1">
               <div className="card-luxury sticky top-24">
-                <h2 className="font-serif text-xl font-semibold mb-4">Tổng Đơn Hàng</h2>
+                <h2 className="text-xl font-semibold mb-4">Tổng Đơn Hàng</h2>
                 
                 <div className="space-y-2 mb-4 pb-4 border-b border-border">
                   <div className="flex justify-between text-muted-foreground">

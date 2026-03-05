@@ -16,7 +16,7 @@ const HeroSection = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div className="text-center md:text-left space-y-6 animate-fade-in">
-            <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
               Vẻ Đẹp
               <br />
               <span className="text-gradient-gold">Vượt Thời Gian</span>
@@ -43,15 +43,15 @@ const HeroSection = () => {
             {/* Stats */}
             <div className="grid grid-cols-3 gap-6 pt-8 border-t border-border mt-8">
               <div>
-                <p className="font-serif text-2xl md:text-3xl font-bold text-primary">24/7</p>
+                <p className="text-2xl md:text-3xl font-bold text-primary">24/7</p>
                 <p className="text-muted-foreground text-sm">Hỗ Trợ Khách Hàng</p>
               </div>
               <div>
-                <p className="font-serif text-2xl md:text-3xl font-bold text-primary">7 Ngày</p>
+                <p className="text-2xl md:text-3xl font-bold text-primary">7 Ngày</p>
                 <p className="text-muted-foreground text-sm">Miễn Phí Đổi Trả</p>
               </div>
               <div>
-                <p className="font-serif text-2xl md:text-3xl font-bold text-primary">5★</p>
+                <p className="text-2xl md:text-3xl font-bold text-primary">5★</p>
                 <p className="text-muted-foreground text-sm">Đánh Giá</p>
               </div>
             </div>
@@ -69,7 +69,7 @@ const HeroSection = () => {
               <div className="absolute inset-16 bg-gradient-to-br from-champagne to-cream rounded-full shadow-elegant flex items-center justify-center">
                 <div className="text-center">
                   <Gem className="w-16 h-16 text-primary mx-auto mb-4" />
-                  <p className="font-serif text-xl text-foreground">Luna Jewel</p>
+                  <p className="text-xl text-foreground font-semibold">Luna Jewel</p>
                   <p className="text-muted-foreground text-sm">Trang Sức Cao Cấp</p>
                 </div>
               </div>

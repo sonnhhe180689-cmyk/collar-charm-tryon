@@ -42,7 +42,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-20">
           <Link to="/" className="flex items-center gap-2">
             <Sparkles className="w-8 h-8 text-primary" />
-            <span className="font-serif text-2xl font-semibold text-foreground">
+            <span className="text-2xl font-semibold text-foreground">
               Luna <span className="text-gradient-gold">Jewel</span>
             </span>
           </Link>
@@ -64,20 +64,12 @@ const Header = () => {
 
           <div className="flex items-center gap-2">
             {session ? (
-              <button
-                onClick={handleLogout}
-                className="hidden md:flex items-center gap-1 text-sm text-muted-foreground hover:text-primary transition-colors px-3 py-2"
-              >
-                <LogOut className="w-4 h-4" />
-                Đăng Xuất
+              <button onClick={handleLogout} className="hidden md:flex items-center gap-1 text-sm text-muted-foreground hover:text-primary transition-colors px-3 py-2">
+                <LogOut className="w-4 h-4" /> Đăng Xuất
               </button>
             ) : (
-              <Link
-                to="/auth"
-                className="hidden md:flex items-center gap-1 text-sm text-muted-foreground hover:text-primary transition-colors px-3 py-2"
-              >
-                <LogIn className="w-4 h-4" />
-                Đăng Nhập
+              <Link to="/auth" className="hidden md:flex items-center gap-1 text-sm text-muted-foreground hover:text-primary transition-colors px-3 py-2">
+                <LogIn className="w-4 h-4" /> Đăng Nhập
               </Link>
             )}
 
@@ -90,10 +82,7 @@ const Header = () => {
               )}
             </Link>
 
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 hover:bg-secondary rounded-full transition-colors"
-            >
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden p-2 hover:bg-secondary rounded-full transition-colors">
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
@@ -102,31 +91,19 @@ const Header = () => {
         {isMenuOpen && (
           <nav className="md:hidden py-4 border-t border-border">
             {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                to={link.href}
-                onClick={() => setIsMenuOpen(false)}
-                className={cn(
-                  "block py-3 text-sm font-medium transition-colors hover:text-primary",
+              <Link key={link.href} to={link.href} onClick={() => setIsMenuOpen(false)}
+                className={cn("block py-3 text-sm font-medium transition-colors hover:text-primary",
                   location.pathname === link.href ? "text-primary" : "text-muted-foreground"
-                )}
-              >
+                )}>
                 {link.label}
               </Link>
             ))}
             {session ? (
-              <button
-                onClick={() => { handleLogout(); setIsMenuOpen(false); }}
-                className="block w-full text-left py-3 text-sm font-medium text-muted-foreground hover:text-primary"
-              >
+              <button onClick={() => { handleLogout(); setIsMenuOpen(false); }} className="block w-full text-left py-3 text-sm font-medium text-muted-foreground hover:text-primary">
                 Đăng Xuất
               </button>
             ) : (
-              <Link
-                to="/auth"
-                onClick={() => setIsMenuOpen(false)}
-                className="block py-3 text-sm font-medium text-muted-foreground hover:text-primary"
-              >
+              <Link to="/auth" onClick={() => setIsMenuOpen(false)} className="block py-3 text-sm font-medium text-muted-foreground hover:text-primary">
                 Đăng Nhập / Đăng Ký
               </Link>
             )}

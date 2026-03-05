@@ -90,7 +90,7 @@ const Contact = () => {
         <div className="container mx-auto px-4">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
               Liên Hệ <span className="text-gradient-gold">Với Chúng Tôi</span>
             </h1>
             <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -107,7 +107,7 @@ const Contact = () => {
                     <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
                       <info.icon className="w-6 h-6 text-primary" />
                     </div>
-                    <h3 className="font-serif font-semibold mb-2">{info.title}</h3>
+                    <h3 className="font-semibold mb-2">{info.title}</h3>
                     {info.details.map((detail, i) => (
                       <p key={i} className="text-muted-foreground text-sm">
                         {detail}
@@ -134,7 +134,7 @@ const Contact = () => {
 
             {/* Contact Form */}
             <div className="card-luxury">
-              <h2 className="font-serif text-2xl font-semibold mb-6">Gửi Tin Nhắn</h2>
+              <h2 className="text-2xl font-semibold mb-6">Gửi Tin Nhắn</h2>
               
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>

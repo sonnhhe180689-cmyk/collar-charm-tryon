@@ -56,7 +56,7 @@ const Auth = () => {
         <div className="container mx-auto px-4 max-w-md">
           <div className="text-center mb-8">
             <Sparkles className="w-12 h-12 text-primary mx-auto mb-4" />
-            <h1 className="font-serif text-3xl font-bold mb-2">
+            <h1 className="text-3xl font-bold mb-2">
               {isLogin ? 'Đăng Nhập' : 'Đăng Ký'}
             </h1>
             <p className="text-muted-foreground">
