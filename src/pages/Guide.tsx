@@ -65,7 +65,7 @@ const Guide = () => {
         <div className="container mx-auto px-4">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
               Hướng Dẫn <span className="text-gradient-gold">Sử Dụng</span>
             </h1>
             <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -82,7 +82,7 @@ const Guide = () => {
                     <step.icon className="w-7 h-7 text-primary" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-serif text-xl font-semibold mb-2">{step.title}</h3>
+                    <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
                     <p className="text-muted-foreground mb-4">{step.description}</p>
                     <div className="bg-secondary/50 rounded-xl p-4">
                       <p className="text-sm font-medium mb-2">Mẹo nhỏ:</p>
@@ -113,7 +113,7 @@ const Guide = () => {
 
           {/* FAQs */}
           <div className="max-w-3xl mx-auto">
-            <h2 className="font-serif text-3xl font-bold text-center mb-8">
+            <h2 className="text-3xl font-bold text-center mb-8">
               Câu Hỏi <span className="text-gradient-gold">Thường Gặp</span>
             </h2>
             <div className="space-y-4">

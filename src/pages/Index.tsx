@@ -82,7 +82,7 @@ const Index = () => {
                   <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
                     <feature.icon className="w-8 h-8 text-primary" />
                   </div>
-                  <h3 className="font-serif text-lg font-semibold mb-2">{feature.title}</h3>
+                  <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
                   <p className="text-muted-foreground text-sm">{feature.description}</p>
                 </div>
               ))}
@@ -94,7 +94,7 @@ const Index = () => {
         <section className="py-20">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
                 Sản Phẩm <span className="text-gradient-gold">Nổi Bật</span>
               </h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -143,7 +143,7 @@ const Index = () => {
         {/* CTA Section */}
         <section className="py-20 bg-foreground text-background">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Trải Nghiệm Thử Vòng Cổ
             </h2>
             <p className="text-background/70 max-w-2xl mx-auto mb-8">

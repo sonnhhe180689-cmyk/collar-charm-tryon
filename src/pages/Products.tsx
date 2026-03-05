@@ -66,7 +66,7 @@ const Products = () => {
         <div className="container mx-auto px-4">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
               Bộ Sưu Tập <span className="text-gradient-gold">Vòng Cổ</span>
             </h1>
             <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -118,7 +118,7 @@ const Products = () => {
           ) : filteredNecklaces.length === 0 ? (
             <div className="text-center py-20">
               <Filter className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-              <h3 className="font-serif text-xl mb-2">Không tìm thấy sản phẩm</h3>
+              <h3 className="text-xl mb-2">Không tìm thấy sản phẩm</h3>
               <p className="text-muted-foreground">
                 Thử tìm kiếm với từ khóa khác hoặc xóa bộ lọc
               </p>
