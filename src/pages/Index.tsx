@@ -6,7 +6,6 @@ import HeroSection from '@/components/HeroSection';
 import NecklaceCard from '@/components/NecklaceCard';
 import { ArrowRight, Gem, Truck, Shield, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
 
 interface Necklace {
   id: string;
@@ -48,17 +47,17 @@ const Index = () => {
     {
       icon: Truck,
       title: 'Giao Hàng Toàn Quốc',
-      description: 'Miễn phí ship cho đơn hàng từ 2.000.000đ, giao trong 2-5 ngày',
+      description: 'Miễn phí ship cho đơn hàng từ 2.000.000đ',
     },
     {
       icon: Shield,
       title: 'Bảo Hành Trọn Đời',
-      description: 'Cam kết đổi trả trong 30 ngày, bảo hành miễn phí trọn đời',
+      description: 'Cam kết đổi trả trong 30 ngày',
     },
     {
       icon: Sparkles,
       title: 'Thử Trước Khi Mua',
-      description: 'Công nghệ thử vòng cổ 2D độc đáo, xem ngay trên ảnh của bạn',
+      description: 'Công nghệ thử vòng cổ 2D độc đáo',
     },
   ];
 
@@ -69,51 +68,25 @@ const Index = () => {
       <main>
         <HeroSection />
 
-        {/* Features */}
-        <section className="py-20 bg-card">
+        {/* Shop by Category heading */}
+        <section className="py-20 border-b border-border">
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {features.map((feature, index) => (
-                <div
-                  key={index}
-                  className="text-center p-6 animate-fade-in"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-                    <feature.icon className="w-8 h-8 text-primary" />
-                  </div>
-                  <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-muted-foreground text-sm">{feature.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Featured Products */}
-        <section className="py-20">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Sản Phẩm <span className="text-gradient-gold">Nổi Bật</span>
-              </h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                Những thiết kế được yêu thích nhất, mang đến vẻ đẹp thanh lịch và sang trọng cho mọi dịp
-              </p>
-            </div>
+            <h2 className="text-center text-2xl md:text-3xl font-light tracking-[0.1em] mb-16">
+              Bộ Sưu Tập
+            </h2>
 
             {loading ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
                 {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="card-luxury animate-pulse">
-                    <div className="aspect-square bg-secondary rounded-xl mb-4" />
-                    <div className="h-4 bg-secondary rounded w-3/4 mb-2" />
-                    <div className="h-3 bg-secondary rounded w-1/2" />
+                  <div key={i} className="animate-pulse">
+                    <div className="aspect-square bg-muted mb-4" />
+                    <div className="h-3 bg-muted w-3/4 mx-auto mb-2" />
+                    <div className="h-3 bg-muted w-1/2 mx-auto" />
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
                 {featuredNecklaces.map((necklace) => (
                   <NecklaceCard
                     key={necklace.id}
@@ -129,31 +102,40 @@ const Index = () => {
               </div>
             )}
 
-            <div className="text-center mt-12">
-              <Link to="/products">
-                <Button className="btn-luxury group">
-                  Xem Tất Cả Sản Phẩm
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
+            <div className="text-center mt-14">
+              <Link to="/products" className="inline-block btn-outline-luxury">
+                Xem Tất Cả
               </Link>
             </div>
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="py-20 bg-foreground text-background">
+        {/* Features */}
+        <section className="py-20 border-b border-border">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+              {features.map((feature, index) => (
+                <div key={index} className="text-center">
+                  <feature.icon className="w-8 h-8 text-primary mx-auto mb-4" strokeWidth={1.5} />
+                  <h3 className="text-xs font-medium tracking-[0.15em] uppercase mb-2">{feature.title}</h3>
+                  <p className="text-muted-foreground text-xs leading-relaxed">{feature.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Try On CTA */}
+        <section className="py-24 bg-tiffany-light">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-2xl md:text-4xl font-light tracking-[0.05em] mb-4 text-foreground">
               Trải Nghiệm Thử Vòng Cổ
             </h2>
-            <p className="text-background/70 max-w-2xl mx-auto mb-8">
-              Tải ảnh của bạn lên và thử ngay các mẫu vòng cổ yêu thích. Xem trước khi mua để chắc chắn bạn đã chọn đúng!
+            <p className="text-muted-foreground max-w-lg mx-auto mb-10 text-sm leading-relaxed">
+              Tải ảnh của bạn lên và thử ngay các mẫu vòng cổ yêu thích. Xem trước khi mua để chắc chắn bạn đã chọn đúng.
             </p>
-            <Link to="/try-on">
-              <Button className="btn-luxury">
-                Thử Ngay Miễn Phí
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
+            <Link to="/try-on" className="inline-block btn-luxury">
+              Thử Ngay
             </Link>
           </div>
         </section>

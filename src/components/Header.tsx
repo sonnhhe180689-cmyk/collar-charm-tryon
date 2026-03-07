@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ShoppingBag, Menu, X, Sparkles, LogIn, LogOut } from 'lucide-react';
+import { ShoppingBag, Menu, X, Search, User, LogOut } from 'lucide-react';
 import { useCartStore } from '@/lib/cartStore';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -10,6 +10,7 @@ import { toast } from 'sonner';
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [session, setSession] = useState<Session | null>(null);
+  const [scrolled, setScrolled] = useState(false);
   const totalItems = useCartStore((state) => state.getTotalItems());
   const location = useLocation();
   const navigate = useNavigate();
@@ -20,6 +21,12 @@ const Header = () => {
     });
     supabase.auth.getSession().then(({ data: { session } }) => setSession(session));
     return () => subscription.unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleLogout = async () => {
@@ -37,24 +44,26 @@ const Header = () => {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
-          <Link to="/" className="flex items-center gap-2">
-            <Sparkles className="w-8 h-8 text-primary" />
-            <span className="text-2xl font-semibold text-foreground">
-              Luna <span className="text-gradient-gold">Jewel</span>
-            </span>
-          </Link>
+    <header className={cn(
+      "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+      scrolled ? "bg-background/95 backdrop-blur-sm border-b border-border" : "bg-background border-b border-border"
+    )}>
+      {/* Top bar */}
+      <div className="bg-primary text-primary-foreground text-center py-2 text-xs tracking-[0.15em] uppercase">
+        Miễn phí vận chuyển cho đơn từ 2.000.000đ · <Link to="/products" className="underline">Mua ngay</Link>
+      </div>
 
-          <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
+          {/* Left nav */}
+          <nav className="hidden lg:flex items-center gap-8">
+            {navLinks.slice(0, 3).map((link) => (
               <Link
                 key={link.href}
                 to={link.href}
                 className={cn(
-                  "text-sm font-medium transition-colors hover:text-primary",
-                  location.pathname === link.href ? "text-primary" : "text-muted-foreground"
+                  "text-xs font-medium tracking-[0.15em] uppercase transition-colors hover:text-primary",
+                  location.pathname === link.href ? "text-primary" : "text-foreground"
                 )}
               >
                 {link.label}
@@ -62,48 +71,80 @@ const Header = () => {
             ))}
           </nav>
 
-          <div className="flex items-center gap-2">
+          {/* Logo */}
+          <Link to="/" className="flex items-center">
+            <span className="text-xl font-bold tracking-[0.3em] uppercase text-foreground">
+              Luna Jewel
+            </span>
+          </Link>
+
+          {/* Right nav */}
+          <div className="hidden lg:flex items-center gap-8">
+            {navLinks.slice(3).map((link) => (
+              <Link
+                key={link.href}
+                to={link.href}
+                className={cn(
+                  "text-xs font-medium tracking-[0.15em] uppercase transition-colors hover:text-primary",
+                  location.pathname === link.href ? "text-primary" : "text-foreground"
+                )}
+              >
+                {link.label}
+              </Link>
+            ))}
+            
             {session ? (
-              <button onClick={handleLogout} className="hidden md:flex items-center gap-1 text-sm text-muted-foreground hover:text-primary transition-colors px-3 py-2">
-                <LogOut className="w-4 h-4" /> Đăng Xuất
+              <button onClick={handleLogout} className="text-foreground hover:text-primary transition-colors">
+                <LogOut className="w-5 h-5" />
               </button>
             ) : (
-              <Link to="/auth" className="hidden md:flex items-center gap-1 text-sm text-muted-foreground hover:text-primary transition-colors px-3 py-2">
-                <LogIn className="w-4 h-4" /> Đăng Nhập
+              <Link to="/auth" className="text-foreground hover:text-primary transition-colors">
+                <User className="w-5 h-5" />
               </Link>
             )}
 
-            <Link to="/cart" className="relative p-2 hover:bg-secondary rounded-full transition-colors">
-              <ShoppingBag className="w-6 h-6 text-foreground" />
+            <Link to="/cart" className="relative text-foreground hover:text-primary transition-colors">
+              <ShoppingBag className="w-5 h-5" />
               {totalItems > 0 && (
-                <span className="absolute -top-1 -right-1 w-5 h-5 bg-primary text-primary-foreground text-xs font-medium rounded-full flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 w-4 h-4 bg-primary text-primary-foreground text-[10px] font-bold flex items-center justify-center rounded-full">
                   {totalItems}
                 </span>
               )}
             </Link>
+          </div>
 
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden p-2 hover:bg-secondary rounded-full transition-colors">
+          {/* Mobile */}
+          <div className="flex items-center gap-3 lg:hidden">
+            <Link to="/cart" className="relative text-foreground">
+              <ShoppingBag className="w-5 h-5" />
+              {totalItems > 0 && (
+                <span className="absolute -top-2 -right-2 w-4 h-4 bg-primary text-primary-foreground text-[10px] font-bold flex items-center justify-center rounded-full">
+                  {totalItems}
+                </span>
+              )}
+            </Link>
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-foreground">
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
 
         {isMenuOpen && (
-          <nav className="md:hidden py-4 border-t border-border">
+          <nav className="lg:hidden py-6 border-t border-border">
             {navLinks.map((link) => (
               <Link key={link.href} to={link.href} onClick={() => setIsMenuOpen(false)}
-                className={cn("block py-3 text-sm font-medium transition-colors hover:text-primary",
-                  location.pathname === link.href ? "text-primary" : "text-muted-foreground"
+                className={cn("block py-3 text-xs font-medium tracking-[0.15em] uppercase transition-colors hover:text-primary",
+                  location.pathname === link.href ? "text-primary" : "text-foreground"
                 )}>
                 {link.label}
               </Link>
             ))}
             {session ? (
-              <button onClick={() => { handleLogout(); setIsMenuOpen(false); }} className="block w-full text-left py-3 text-sm font-medium text-muted-foreground hover:text-primary">
+              <button onClick={() => { handleLogout(); setIsMenuOpen(false); }} className="block w-full text-left py-3 text-xs font-medium tracking-[0.15em] uppercase text-foreground hover:text-primary">
                 Đăng Xuất
               </button>
             ) : (
-              <Link to="/auth" onClick={() => setIsMenuOpen(false)} className="block py-3 text-sm font-medium text-muted-foreground hover:text-primary">
+              <Link to="/auth" onClick={() => setIsMenuOpen(false)} className="block py-3 text-xs font-medium tracking-[0.15em] uppercase text-foreground hover:text-primary">
                 Đăng Nhập / Đăng Ký
               </Link>
             )}

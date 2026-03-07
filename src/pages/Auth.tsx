@@ -6,7 +6,6 @@ import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
-import { Sparkles } from 'lucide-react';
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -52,55 +51,57 @@ const Auth = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="pt-24 pb-20">
-        <div className="container mx-auto px-4 max-w-md">
-          <div className="text-center mb-8">
-            <Sparkles className="w-12 h-12 text-primary mx-auto mb-4" />
-            <h1 className="text-3xl font-bold mb-2">
+      <main className="pt-32 pb-20">
+        <div className="container mx-auto px-4 max-w-sm">
+          <div className="text-center mb-10">
+            <h1 className="text-2xl font-light tracking-[0.1em] mb-2">
               {isLogin ? 'Đăng Nhập' : 'Đăng Ký'}
             </h1>
-            <p className="text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               {isLogin
                 ? 'Đăng nhập để mua hàng và thử vòng cổ'
                 : 'Tạo tài khoản để trải nghiệm đầy đủ'}
             </p>
           </div>
 
-          <div className="card-luxury">
-            <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="border border-border p-8">
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label className="text-sm font-medium mb-1 block">Email</label>
+                <label className="text-xs font-medium tracking-[0.1em] uppercase mb-2 block text-muted-foreground">Email</label>
                 <Input
                   type="email"
                   placeholder="Nhập email của bạn"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  className="rounded-none"
                 />
               </div>
               <div>
-                <label className="text-sm font-medium mb-1 block">Mật khẩu</label>
+                <label className="text-xs font-medium tracking-[0.1em] uppercase mb-2 block text-muted-foreground">Mật khẩu</label>
                 <Input
                   type="password"
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
+                  className="rounded-none"
                 />
               </div>
               {!isLogin && (
                 <div>
-                  <label className="text-sm font-medium mb-1 block">Xác nhận mật khẩu</label>
+                  <label className="text-xs font-medium tracking-[0.1em] uppercase mb-2 block text-muted-foreground">Xác nhận mật khẩu</label>
                   <Input
                     type="password"
                     placeholder="••••••••"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
+                    className="rounded-none"
                   />
                 </div>
               )}
-              <Button type="submit" disabled={loading} className="w-full btn-luxury">
+              <Button type="submit" disabled={loading} className="w-full btn-luxury rounded-none">
                 {loading
                   ? 'Đang xử lý...'
                   : isLogin
@@ -112,7 +113,7 @@ const Auth = () => {
             <div className="mt-6 text-center">
               <button
                 onClick={() => setIsLogin(!isLogin)}
-                className="text-sm text-primary hover:underline"
+                className="text-xs text-muted-foreground hover:text-foreground underline transition-colors"
               >
                 {isLogin
                   ? 'Chưa có tài khoản? Đăng ký ngay'
