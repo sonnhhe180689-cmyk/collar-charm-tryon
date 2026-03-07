@@ -15,42 +15,30 @@ const contactSchema = z.object({
 });
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  });
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: '' }));
-    }
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: '' }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
     try {
       contactSchema.parse(formData);
       setErrors({});
       setIsSubmitting(true);
-
-      // Simulate sending message
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      
       toast.success('Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm nhất.');
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
       if (error instanceof z.ZodError) {
         const newErrors: Record<string, string> = {};
         error.errors.forEach((err) => {
-          if (err.path[0]) {
-            newErrors[err.path[0] as string] = err.message;
-          }
+          if (err.path[0]) newErrors[err.path[0] as string] = err.message;
         });
         setErrors(newErrors);
       }
@@ -60,133 +48,71 @@ const Contact = () => {
   };
 
   const contactInfo = [
-    {
-      icon: MapPin,
-      title: 'Địa Chỉ',
-      details: ['Đại học FPT, Khu CNC Hòa Lạc', 'Thạch Thất, Hà Nội'],
-    },
-    {
-      icon: Phone,
-      title: 'Hotline',
-      details: ['0901 234 567', '0901 234 568'],
-    },
-    {
-      icon: Mail,
-      title: 'Email',
-      details: ['contact@lunajewel.vn', 'support@lunajewel.vn'],
-    },
-    {
-      icon: Clock,
-      title: 'Giờ Làm Việc',
-      details: ['Thứ 2 - Chủ Nhật', '9:00 - 21:00'],
-    },
+    { icon: MapPin, title: 'Địa Chỉ', details: ['Đại học FPT, Khu CNC Hòa Lạc', 'Thạch Thất, Hà Nội'] },
+    { icon: Phone, title: 'Hotline', details: ['0901 234 567', '0901 234 568'] },
+    { icon: Mail, title: 'Email', details: ['contact@lunajewel.vn', 'support@lunajewel.vn'] },
+    { icon: Clock, title: 'Giờ Làm Việc', details: ['Thứ 2 - Chủ Nhật', '9:00 - 21:00'] },
   ];
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
 
-      <main className="pt-24 pb-20">
+      <main className="pt-32 pb-20">
         <div className="container mx-auto px-4">
-          {/* Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Liên Hệ <span className="text-gradient-gold">Với Chúng Tôi</span>
+          <div className="text-center mb-14">
+            <h1 className="text-3xl md:text-4xl font-light tracking-[0.1em] mb-4">
+              Liên Hệ Với Chúng Tôi
             </h1>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-sm max-w-lg mx-auto">
               Có câu hỏi hoặc cần hỗ trợ? Đội ngũ của chúng tôi luôn sẵn sàng giúp đỡ bạn
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="grid lg:grid-cols-2 gap-14">
             {/* Contact Info */}
             <div className="space-y-8">
               <div className="grid sm:grid-cols-2 gap-6">
                 {contactInfo.map((info, index) => (
-                  <div key={index} className="card-luxury">
-                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                      <info.icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <h3 className="font-semibold mb-2">{info.title}</h3>
+                  <div key={index} className="border border-border p-6">
+                    <info.icon className="w-5 h-5 text-primary mb-4" strokeWidth={1.5} />
+                    <h3 className="text-xs font-medium tracking-[0.15em] uppercase mb-3">{info.title}</h3>
                     {info.details.map((detail, i) => (
-                      <p key={i} className="text-muted-foreground text-sm">
-                        {detail}
-                      </p>
+                      <p key={i} className="text-muted-foreground text-sm">{detail}</p>
                     ))}
                   </div>
                 ))}
               </div>
 
-              {/* Map placeholder */}
-              <div className="aspect-video rounded-2xl overflow-hidden bg-secondary">
+              <div className="aspect-video overflow-hidden bg-muted">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.473546128!2d105.5225855!3d21.0124167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135abc60e7d3f19%3A0x2be9d7d0b5abcbf4!2zxJDhuqFpIGjhu41jIEZQVA!5e0!3m2!1svi!2s!4v1704067200000!5m2!1svi!2s"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Vị trí cửa hàng"
+                  width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade" title="Vị trí cửa hàng"
                 />
               </div>
             </div>
 
             {/* Contact Form */}
-            <div className="card-luxury">
-              <h2 className="text-2xl font-semibold mb-6">Gửi Tin Nhắn</h2>
+            <div className="border border-border p-8">
+              <h2 className="text-xs font-medium tracking-[0.2em] uppercase mb-8">Gửi Tin Nhắn</h2>
               
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <Input
-                    name="name"
-                    placeholder="Họ và tên *"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    className={errors.name ? 'border-destructive' : ''}
-                  />
-                  {errors.name && (
-                    <p className="text-destructive text-xs mt-1">{errors.name}</p>
-                  )}
+                  <Input name="name" placeholder="Họ và tên *" value={formData.name} onChange={handleInputChange} className={`rounded-none ${errors.name ? 'border-destructive' : ''}`} />
+                  {errors.name && <p className="text-destructive text-xs mt-1">{errors.name}</p>}
                 </div>
                 <div>
-                  <Input
-                    name="email"
-                    type="email"
-                    placeholder="Email *"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className={errors.email ? 'border-destructive' : ''}
-                  />
-                  {errors.email && (
-                    <p className="text-destructive text-xs mt-1">{errors.email}</p>
-                  )}
+                  <Input name="email" type="email" placeholder="Email *" value={formData.email} onChange={handleInputChange} className={`rounded-none ${errors.email ? 'border-destructive' : ''}`} />
+                  {errors.email && <p className="text-destructive text-xs mt-1">{errors.email}</p>}
                 </div>
                 <div>
-                  <Textarea
-                    name="message"
-                    placeholder="Nội dung tin nhắn *"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    className={errors.message ? 'border-destructive' : ''}
-                    rows={6}
-                  />
-                  {errors.message && (
-                    <p className="text-destructive text-xs mt-1">{errors.message}</p>
-                  )}
+                  <Textarea name="message" placeholder="Nội dung tin nhắn *" value={formData.message} onChange={handleInputChange} className={`rounded-none ${errors.message ? 'border-destructive' : ''}`} rows={6} />
+                  {errors.message && <p className="text-destructive text-xs mt-1">{errors.message}</p>}
                 </div>
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full btn-luxury"
-                >
-                  {isSubmitting ? 'Đang gửi...' : (
-                    <>
-                      Gửi Tin Nhắn
-                      <Send className="w-4 h-4 ml-2" />
-                    </>
-                  )}
-                </Button>
+                <button type="submit" disabled={isSubmitting} className="w-full btn-luxury text-center">
+                  {isSubmitting ? 'Đang gửi...' : 'Gửi Tin Nhắn'}
+                </button>
               </form>
             </div>
           </div>

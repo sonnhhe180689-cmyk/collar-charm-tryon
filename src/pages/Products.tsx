@@ -5,7 +5,6 @@ import Footer from '@/components/Footer';
 import NecklaceCard from '@/components/NecklaceCard';
 import { Search, Filter } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 
 interface Necklace {
   id: string;
@@ -62,69 +61,69 @@ const Products = () => {
     <div className="min-h-screen bg-background">
       <Header />
 
-      <main className="pt-24 pb-20">
+      <main className="pt-32 pb-20">
         <div className="container mx-auto px-4">
           {/* Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Bộ Sưu Tập <span className="text-gradient-gold">Vòng Cổ</span>
+          <div className="text-center mb-14">
+            <h1 className="text-3xl md:text-4xl font-light tracking-[0.1em] mb-4">
+              Bộ Sưu Tập Vòng Cổ
             </h1>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-sm max-w-lg mx-auto">
               Khám phá những thiết kế tinh tế, được chế tác từ những nguyên liệu cao cấp nhất
             </p>
           </div>
 
           {/* Filters */}
-          <div className="flex flex-col md:flex-row gap-4 mb-8">
-            {/* Search */}
-            <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+          <div className="flex flex-col md:flex-row gap-4 mb-10 items-center justify-between">
+            <div className="relative max-w-sm w-full">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
                 type="text"
-                placeholder="Tìm kiếm vòng cổ..."
+                placeholder="Tìm kiếm..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 rounded-full"
+                className="pl-10 rounded-none border-border text-sm"
               />
             </div>
 
-            {/* Categories */}
-            <div className="flex gap-2 flex-wrap">
+            <div className="flex gap-1">
               {categories.map((cat) => (
-                <Button
+                <button
                   key={cat.value || 'all'}
-                  variant={selectedCategory === cat.value ? 'default' : 'outline'}
                   onClick={() => setSelectedCategory(cat.value)}
-                  className="rounded-full"
-                  size="sm"
+                  className={`px-4 py-2 text-xs tracking-[0.1em] uppercase transition-colors ${
+                    selectedCategory === cat.value
+                      ? 'bg-foreground text-background'
+                      : 'text-muted-foreground hover:text-foreground'
+                  }`}
                 >
                   {cat.label}
-                </Button>
+                </button>
               ))}
             </div>
           </div>
 
           {/* Products Grid */}
           {loading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
               {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-                <div key={i} className="card-luxury animate-pulse">
-                  <div className="aspect-square bg-secondary rounded-xl mb-4" />
-                  <div className="h-4 bg-secondary rounded w-3/4 mb-2" />
-                  <div className="h-3 bg-secondary rounded w-1/2" />
+                <div key={i} className="animate-pulse">
+                  <div className="aspect-square bg-muted mb-4" />
+                  <div className="h-3 bg-muted w-3/4 mx-auto mb-2" />
+                  <div className="h-3 bg-muted w-1/2 mx-auto" />
                 </div>
               ))}
             </div>
           ) : filteredNecklaces.length === 0 ? (
-            <div className="text-center py-20">
-              <Filter className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-xl mb-2">Không tìm thấy sản phẩm</h3>
-              <p className="text-muted-foreground">
-                Thử tìm kiếm với từ khóa khác hoặc xóa bộ lọc
+            <div className="text-center py-24">
+              <Filter className="w-12 h-12 text-muted-foreground mx-auto mb-4" strokeWidth={1} />
+              <h3 className="text-lg font-light mb-2">Không tìm thấy sản phẩm</h3>
+              <p className="text-muted-foreground text-sm">
+                Thử tìm kiếm với từ khóa khác
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
               {filteredNecklaces.map((necklace) => (
                 <NecklaceCard
                   key={necklace.id}

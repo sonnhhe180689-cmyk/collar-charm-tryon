@@ -29,32 +29,30 @@ const NecklaceCard = ({ id, name, description, price, imageUrl, material }: Neck
   };
 
   return (
-    <div className="card-luxury group">
-      <div className="relative aspect-square rounded-xl overflow-hidden mb-4 bg-secondary">
-        <img src={actualImageUrl} alt={name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-        <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/10 transition-colors" />
-        <div className="absolute bottom-4 left-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity translate-y-4 group-hover:translate-y-0 duration-300">
+    <div className="group">
+      <div className="relative aspect-square overflow-hidden mb-4 bg-muted">
+        <img src={actualImageUrl} alt={name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+        <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/5 transition-colors duration-500" />
+        <div className="absolute bottom-0 left-0 right-0 p-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
           <Link to={`/try-on?necklace=${id}`} className="flex-1">
-            <Button variant="secondary" className="w-full rounded-full" size="sm">
-              <Eye className="w-4 h-4 mr-2" />
+            <Button variant="secondary" className="w-full bg-background/90 backdrop-blur-sm text-foreground hover:bg-background text-xs tracking-[0.1em] uppercase rounded-none" size="sm">
+              <Eye className="w-3 h-3 mr-2" />
               Thử Ngay
             </Button>
           </Link>
+          <Button onClick={handleAddToCart} size="icon" className="bg-background/90 backdrop-blur-sm text-foreground hover:bg-background rounded-none w-9 h-9">
+            <ShoppingCart className="w-3 h-3" />
+          </Button>
         </div>
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-1.5 text-center">
         {material && (
-          <span className="text-xs text-primary font-medium uppercase tracking-wide">{material}</span>
+          <span className="text-[10px] text-primary font-medium uppercase tracking-[0.2em]">{material}</span>
         )}
-        <h3 className="text-lg font-semibold text-foreground line-clamp-1">{name}</h3>
-        {description && <p className="text-muted-foreground text-sm line-clamp-2">{description}</p>}
-        <div className="flex items-center justify-between pt-2">
-          <p className="text-xl font-bold text-primary">{formatPrice(price)}</p>
-          <Button onClick={handleAddToCart} size="icon" className="rounded-full bg-primary hover:bg-primary/90">
-            <ShoppingCart className="w-4 h-4" />
-          </Button>
-        </div>
+        <h3 className="text-sm font-medium text-foreground">{name}</h3>
+        {description && <p className="text-muted-foreground text-xs line-clamp-1">{description}</p>}
+        <p className="text-sm font-medium text-foreground">{formatPrice(price)}</p>
       </div>
     </div>
   );

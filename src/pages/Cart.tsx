@@ -6,7 +6,7 @@ import { useCartStore } from '@/lib/cartStore';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Minus, Plus, Trash2, ShoppingBag, ArrowRight } from 'lucide-react';
+import { Minus, Plus, X, ShoppingBag, ArrowRight } from 'lucide-react';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
 import { z } from 'zod';
@@ -33,10 +33,7 @@ const Cart = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('vi-VN', {
-      style: 'currency',
-      currency: 'VND',
-    }).format(price);
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -55,7 +52,6 @@ const Cart = () => {
       setErrors({});
       setIsSubmitting(true);
 
-      // Create order
       const { data: order, error: orderError } = await supabase
         .from('orders')
         .insert({
@@ -72,7 +68,6 @@ const Cart = () => {
 
       if (orderError) throw orderError;
 
-      // Create order items
       const orderItems = items.map((item) => ({
         order_id: order.id,
         necklace_id: item.necklaceId,
@@ -111,18 +106,15 @@ const Cart = () => {
     return (
       <div className="min-h-screen bg-background">
         <Header />
-        <main className="pt-24 pb-20">
+        <main className="pt-32 pb-20">
           <div className="container mx-auto px-4 text-center">
-            <ShoppingBag className="w-24 h-24 text-muted-foreground mx-auto mb-6" />
-            <h1 className="text-3xl font-bold mb-4">Giỏ Hàng Trống</h1>
-            <p className="text-muted-foreground mb-8">
+            <ShoppingBag className="w-16 h-16 text-muted-foreground mx-auto mb-6" strokeWidth={1} />
+            <h1 className="text-2xl font-light tracking-[0.1em] mb-4">Giỏ Hàng Trống</h1>
+            <p className="text-muted-foreground text-sm mb-10">
               Bạn chưa có sản phẩm nào trong giỏ hàng
             </p>
-            <Link to="/products">
-              <Button className="btn-luxury">
-                Khám Phá Sản Phẩm
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
+            <Link to="/products" className="inline-block btn-luxury">
+              Khám Phá Sản Phẩm
             </Link>
           </div>
         </main>
@@ -135,56 +127,51 @@ const Cart = () => {
     <div className="min-h-screen bg-background">
       <Header />
 
-      <main className="pt-24 pb-20">
+      <main className="pt-32 pb-20">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold mb-8">
-            Giỏ Hàng <span className="text-gradient-gold">Của Bạn</span>
+          <h1 className="text-2xl font-light tracking-[0.1em] mb-10 text-center">
+            Giỏ Hàng
           </h1>
 
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-3 gap-10">
             {/* Cart Items */}
-            <div className="lg:col-span-2 space-y-4">
+            <div className="lg:col-span-2">
+              <div className="border-b border-border pb-2 mb-4 hidden md:grid grid-cols-12 gap-4 text-xs tracking-[0.1em] uppercase text-muted-foreground">
+                <div className="col-span-6">Sản phẩm</div>
+                <div className="col-span-2 text-center">Số lượng</div>
+                <div className="col-span-3 text-right">Thành tiền</div>
+                <div className="col-span-1"></div>
+              </div>
+
               {items.map((item) => (
-                <div key={item.id} className="card-luxury flex gap-4">
-                  <div className="w-24 h-24 rounded-xl overflow-hidden bg-secondary flex-shrink-0">
-                    <img
-                      src={item.imageUrl}
-                      alt={item.name}
-                      className="w-full h-full object-cover"
-                    />
+                <div key={item.id} className="border-b border-border py-6 grid grid-cols-12 gap-4 items-center">
+                  <div className="col-span-12 md:col-span-6 flex gap-4">
+                    <div className="w-20 h-20 overflow-hidden bg-muted flex-shrink-0">
+                      <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-medium">{item.name}</h3>
+                      <p className="text-sm text-muted-foreground mt-1">{formatPrice(item.price)}</p>
+                    </div>
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold truncate">{item.name}</h3>
-                    <p className="text-primary font-medium">{formatPrice(item.price)}</p>
-                    
-                    <div className="flex items-center gap-3 mt-2">
-                      <div className="flex items-center border border-border rounded-full">
-                        <button
-                          onClick={() => updateQuantity(item.necklaceId, item.quantity - 1)}
-                          className="p-2 hover:bg-secondary rounded-l-full transition-colors"
-                        >
-                          <Minus className="w-4 h-4" />
-                        </button>
-                        <span className="px-4 font-medium">{item.quantity}</span>
-                        <button
-                          onClick={() => updateQuantity(item.necklaceId, item.quantity + 1)}
-                          className="p-2 hover:bg-secondary rounded-r-full transition-colors"
-                        >
-                          <Plus className="w-4 h-4" />
-                        </button>
-                      </div>
-                      <button
-                        onClick={() => removeItem(item.necklaceId)}
-                        className="p-2 text-destructive hover:bg-destructive/10 rounded-full transition-colors"
-                      >
-                        <Trash2 className="w-4 h-4" />
+                  <div className="col-span-6 md:col-span-2 flex items-center justify-center">
+                    <div className="flex items-center border border-border">
+                      <button onClick={() => updateQuantity(item.necklaceId, item.quantity - 1)} className="p-2 hover:bg-muted transition-colors">
+                        <Minus className="w-3 h-3" />
+                      </button>
+                      <span className="px-4 text-sm">{item.quantity}</span>
+                      <button onClick={() => updateQuantity(item.necklaceId, item.quantity + 1)} className="p-2 hover:bg-muted transition-colors">
+                        <Plus className="w-3 h-3" />
                       </button>
                     </div>
                   </div>
-                  <div className="text-right">
-                    <p className="font-bold">
-                      {formatPrice(item.price * item.quantity)}
-                    </p>
+                  <div className="col-span-4 md:col-span-3 text-right">
+                    <p className="text-sm font-medium">{formatPrice(item.price * item.quantity)}</p>
+                  </div>
+                  <div className="col-span-2 md:col-span-1 text-right">
+                    <button onClick={() => removeItem(item.necklaceId)} className="text-muted-foreground hover:text-foreground transition-colors">
+                      <X className="w-4 h-4" />
+                    </button>
                   </div>
                 </div>
               ))}
@@ -192,110 +179,56 @@ const Cart = () => {
 
             {/* Order Summary */}
             <div className="lg:col-span-1">
-              <div className="card-luxury sticky top-24">
-                <h2 className="text-xl font-semibold mb-4">Tổng Đơn Hàng</h2>
+              <div className="border border-border p-6 sticky top-32">
+                <h2 className="text-xs font-medium tracking-[0.2em] uppercase mb-6">Tổng Đơn Hàng</h2>
                 
-                <div className="space-y-2 mb-4 pb-4 border-b border-border">
-                  <div className="flex justify-between text-muted-foreground">
-                    <span>Tạm tính</span>
+                <div className="space-y-3 mb-4 pb-4 border-b border-border">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">Tạm tính</span>
                     <span>{formatPrice(getTotalPrice())}</span>
                   </div>
-                  <div className="flex justify-between text-muted-foreground">
-                    <span>Phí vận chuyển</span>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">Vận chuyển</span>
                     <span>{getTotalPrice() >= 2000000 ? 'Miễn phí' : formatPrice(50000)}</span>
                   </div>
                 </div>
 
-                <div className="flex justify-between text-lg font-semibold mb-6">
+                <div className="flex justify-between text-sm font-medium mb-8">
                   <span>Tổng cộng</span>
-                  <span className="text-primary">
-                    {formatPrice(getTotalPrice() + (getTotalPrice() >= 2000000 ? 0 : 50000))}
-                  </span>
+                  <span>{formatPrice(getTotalPrice() + (getTotalPrice() >= 2000000 ? 0 : 50000))}</span>
                 </div>
 
                 {!isCheckingOut ? (
-                  <Button
-                    onClick={() => setIsCheckingOut(true)}
-                    className="w-full btn-luxury"
-                  >
-                    Tiến Hành Đặt Hàng
-                  </Button>
+                  <button onClick={() => setIsCheckingOut(true)} className="w-full btn-luxury text-center">
+                    Đặt Hàng
+                  </button>
                 ) : (
                   <form onSubmit={handleSubmitOrder} className="space-y-4">
                     <div>
-                      <Input
-                        name="name"
-                        placeholder="Họ và tên *"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        className={errors.name ? 'border-destructive' : ''}
-                      />
-                      {errors.name && (
-                        <p className="text-destructive text-xs mt-1">{errors.name}</p>
-                      )}
+                      <Input name="name" placeholder="Họ và tên *" value={formData.name} onChange={handleInputChange} className={`rounded-none ${errors.name ? 'border-destructive' : ''}`} />
+                      {errors.name && <p className="text-destructive text-xs mt-1">{errors.name}</p>}
                     </div>
                     <div>
-                      <Input
-                        name="email"
-                        type="email"
-                        placeholder="Email *"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        className={errors.email ? 'border-destructive' : ''}
-                      />
-                      {errors.email && (
-                        <p className="text-destructive text-xs mt-1">{errors.email}</p>
-                      )}
+                      <Input name="email" type="email" placeholder="Email *" value={formData.email} onChange={handleInputChange} className={`rounded-none ${errors.email ? 'border-destructive' : ''}`} />
+                      {errors.email && <p className="text-destructive text-xs mt-1">{errors.email}</p>}
                     </div>
                     <div>
-                      <Input
-                        name="phone"
-                        placeholder="Số điện thoại *"
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        className={errors.phone ? 'border-destructive' : ''}
-                      />
-                      {errors.phone && (
-                        <p className="text-destructive text-xs mt-1">{errors.phone}</p>
-                      )}
+                      <Input name="phone" placeholder="Số điện thoại *" value={formData.phone} onChange={handleInputChange} className={`rounded-none ${errors.phone ? 'border-destructive' : ''}`} />
+                      {errors.phone && <p className="text-destructive text-xs mt-1">{errors.phone}</p>}
                     </div>
                     <div>
-                      <Textarea
-                        name="address"
-                        placeholder="Địa chỉ giao hàng *"
-                        value={formData.address}
-                        onChange={handleInputChange}
-                        className={errors.address ? 'border-destructive' : ''}
-                        rows={3}
-                      />
-                      {errors.address && (
-                        <p className="text-destructive text-xs mt-1">{errors.address}</p>
-                      )}
+                      <Textarea name="address" placeholder="Địa chỉ giao hàng *" value={formData.address} onChange={handleInputChange} className={`rounded-none ${errors.address ? 'border-destructive' : ''}`} rows={3} />
+                      {errors.address && <p className="text-destructive text-xs mt-1">{errors.address}</p>}
                     </div>
                     <div>
-                      <Textarea
-                        name="notes"
-                        placeholder="Ghi chú (tùy chọn)"
-                        value={formData.notes}
-                        onChange={handleInputChange}
-                        rows={2}
-                      />
+                      <Textarea name="notes" placeholder="Ghi chú (tùy chọn)" value={formData.notes} onChange={handleInputChange} className="rounded-none" rows={2} />
                     </div>
-                    <Button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full btn-luxury"
-                    >
+                    <button type="submit" disabled={isSubmitting} className="w-full btn-luxury text-center">
                       {isSubmitting ? 'Đang xử lý...' : 'Xác Nhận Đặt Hàng'}
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      onClick={() => setIsCheckingOut(false)}
-                      className="w-full"
-                    >
+                    </button>
+                    <button type="button" onClick={() => setIsCheckingOut(false)} className="w-full text-xs text-muted-foreground hover:text-foreground underline py-2">
                       Quay lại
-                    </Button>
+                    </button>
                   </form>
                 )}
               </div>
