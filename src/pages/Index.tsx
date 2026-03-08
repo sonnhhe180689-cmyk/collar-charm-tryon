@@ -190,7 +190,7 @@ const Index = () => {
               </div>
               <div>
                 <h2 className="text-3xl md:text-4xl font-bold mb-2 text-foreground">
-                  The Story of Luxury
+                  Câu Chuyện Sang Trọng
                 </h2>
                 <p className="text-sm tracking-[0.15em] uppercase text-muted-foreground mb-6">
                   Nghệ Thuật Chế Tác
