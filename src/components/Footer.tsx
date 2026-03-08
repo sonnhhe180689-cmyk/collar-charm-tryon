@@ -76,7 +76,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-background/10 mt-12 pt-8 text-center">
-          <p className="text-background/30 text-xs tracking-[0.1em]">© 2024 Luna Jewel. All Rights Reserved.</p>
+          <p className="text-background/30 text-xs tracking-[0.1em]">© 2024 Luna Jewel. Bảo lưu mọi quyền.</p>
         </div>
       </div>
     </footer>

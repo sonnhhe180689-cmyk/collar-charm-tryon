@@ -306,10 +306,10 @@ const Index = () => {
         <section className="py-20 bg-secondary/10 border-b border-border">
           <div className="container mx-auto px-4 max-w-xl">
             <h2 className="text-center text-3xl md:text-4xl font-bold italic mb-2 text-foreground">
-              Leave a Feedback
+              Để Lại Đánh Giá
             </h2>
             <p className="text-center text-sm tracking-[0.2em] uppercase text-muted-foreground mb-8">
-              Để Lại Đánh Giá
+              Chia Sẻ Trải Nghiệm Của Bạn
             </p>
 
             {/* Star Rating */}
