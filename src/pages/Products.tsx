@@ -75,26 +75,26 @@ const Products = () => {
 
           {/* Filters */}
           <div className="flex flex-col md:flex-row gap-4 mb-10 items-center justify-between">
-            <div className="relative max-w-sm w-full">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <div className="relative max-w-md w-full">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
                 type="text"
-                placeholder="Tìm kiếm..."
+                placeholder="Tìm kiếm vòng cổ..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 rounded-none border-border text-sm"
+                className="pl-11 rounded-full border-border text-sm h-11"
               />
             </div>
 
-            <div className="flex gap-1">
+            <div className="flex gap-2">
               {categories.map((cat) => (
                 <button
                   key={cat.value || 'all'}
                   onClick={() => setSelectedCategory(cat.value)}
-                  className={`px-4 py-2 text-xs tracking-[0.1em] uppercase transition-colors ${
+                  className={`px-5 py-2.5 text-xs tracking-[0.05em] rounded-full border transition-all duration-300 ${
                     selectedCategory === cat.value
-                      ? 'bg-foreground text-background'
-                      : 'text-muted-foreground hover:text-foreground'
+                      ? 'bg-gold text-background border-gold'
+                      : 'border-border text-muted-foreground hover:border-gold hover:text-gold'
                   }`}
                 >
                   {cat.label}
