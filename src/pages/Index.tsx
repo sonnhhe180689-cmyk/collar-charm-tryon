@@ -190,7 +190,7 @@ const Index = () => {
               </div>
               <div>
                 <h2 className="text-3xl md:text-4xl font-bold mb-2 text-foreground">
-                  The Story of Luxury
+                  Câu Chuyện Sang Trọng
                 </h2>
                 <p className="text-sm tracking-[0.15em] uppercase text-muted-foreground mb-6">
                   Nghệ Thuật Chế Tác
@@ -277,10 +277,10 @@ const Index = () => {
         <section className="py-20 bg-secondary/20 border-b border-border">
           <div className="container mx-auto px-4">
             <h2 className="text-center text-3xl md:text-4xl font-bold italic mb-2 text-foreground">
-              Customer Feedback
+              Phản Hồi Từ Khách Hàng
             </h2>
             <p className="text-center text-sm tracking-[0.2em] uppercase text-muted-foreground mb-16">
-              Phản Hồi Từ Khách Hàng
+              Những Đánh Giá Chân Thực
             </p>
 
             <div className="grid md:grid-cols-3 gap-10 max-w-5xl mx-auto">
@@ -306,10 +306,10 @@ const Index = () => {
         <section className="py-20 bg-secondary/10 border-b border-border">
           <div className="container mx-auto px-4 max-w-xl">
             <h2 className="text-center text-3xl md:text-4xl font-bold italic mb-2 text-foreground">
-              Leave a Feedback
+              Để Lại Đánh Giá
             </h2>
             <p className="text-center text-sm tracking-[0.2em] uppercase text-muted-foreground mb-8">
-              Để Lại Đánh Giá
+              Chia Sẻ Trải Nghiệm Của Bạn
             </p>
 
             {/* Star Rating */}
